@@ -5,9 +5,7 @@ export default function CategoryFilter({ categories, value, onChange }) {
   return (
     <div>
 
-      <h3 className="font-medium mb-3">
-        Category
-      </h3>
+      <h3 className="font-medium mb-3">Category</h3>
 
       <div className="space-y-2">
 

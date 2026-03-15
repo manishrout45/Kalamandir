@@ -5,9 +5,7 @@ export default function FabricFilter({ fabrics, value, onChange }) {
   return (
     <div>
 
-      <h3 className="font-medium mb-3">
-        Fabric
-      </h3>
+      <h3 className="font-medium mb-3">Fabric</h3>
 
       <div className="space-y-2">
 
@@ -20,9 +18,7 @@ export default function FabricFilter({ fabrics, value, onChange }) {
               onChange={() => onChange(fabric)}
             />
 
-            <span className="text-sm">
-              {fabric}
-            </span>
+            <span className="text-sm">{fabric}</span>
 
           </label>
         ))}

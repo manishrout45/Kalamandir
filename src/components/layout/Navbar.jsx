@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
 
 export default function Navbar() {
+
   const [isOpen, setIsOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -15,17 +16,12 @@ export default function Navbar() {
 
   useEffect(() => {
     const loginStatus = localStorage.getItem("isLoggedIn");
-    if (loginStatus === "true") {
-      setIsLoggedIn(true);
-    }
+    if (loginStatus === "true") setIsLoggedIn(true);
   }, []);
 
   const handleProfileClick = () => {
-    if (isLoggedIn) {
-      router.push("/profile");
-    } else {
-      router.push("/login");
-    }
+    if (isLoggedIn) router.push("/profile");
+    else router.push("/login");
   };
 
   const goToWishlist = () => {
@@ -40,41 +36,84 @@ export default function Navbar() {
 
   const menuItems = [
     {
-      name: "Men",
-      href: "/men",
-      categories: ["Shirts", "T-Shirts", "Jeans", "Ethnic Wear"],
-    },
-    {
       name: "Women",
       href: "/women",
-      categories: ["Sarees", "Kurtis", "Tops", "Lehengas"],
+      groups: [
+        {
+          title: "Saree",
+          items: [
+            "Silk Saree","Cotton Saree","Designer Saree","Party Wear Saree",
+            "Fancy Saree","Embroidered Saree","Baluchari","Banarasi","Bomkai"
+          ]
+        },
+        {
+          title: "Saree",
+          items: [
+            "Patola","Ikkat Silk","Sambalpuri","Khandua","Chanderi",
+            "Kanjivaram","Lucknowi Chikankari","Pashmina Woven Silk",
+            "Handmade","Patta"
+          ]
+        },
+        {
+          title: "Lehenga",
+          items: ["Bridal Lehenga","Party Wear Lehenga","Designer Lehenga"]
+        },
+        {
+          title: "Western Wear",
+          items: ["Tops","Dresses","Jeans","Skirts"]
+        },
+        {
+          title: "Salwar Suit",
+          items: ["Churidar Suit","Anarkali Suit","Palazzo Suit"]
+        },
+        {
+          title: "Accessory",
+          items: [
+            "Blouse","Petticoat","Saree Fall","Saree Lace","Saree Pin",
+            "Dupatta Chiffon","Dupatta Net","Dupatta Silk","Dupatta Bridal",
+            "Bottom","Kamarbandh","Handbags","Legging"
+          ]
+        }
+      ]
     },
     {
       name: "Kids",
       href: "/kids",
-      categories: ["Boys Wear", "Girls Wear", "Infant Wear"],
+      groups: [
+        {
+          title: "Kids Wear",
+          items: [
+            "Baby Wear","Girls Wear","Boys Wear","Kids Ethnic Wear",
+            "Kids Winter Wear","Kids Nightwear","Kids Accessories"
+          ]
+        }
+      ]
     },
     {
-      name: "Other",
-      href: "/other",
-      categories: ["Accessories", "Bags", "Footwear"],
-    },
-    {
-      name: "SALE",
-      href: "/sale",
-      categories: ["Men Sale", "Women Sale", "Kids Sale"],
-    },
+      name: "Home Decor",
+      href: "/home-decor",
+      groups: [
+        {
+          title: "Home Decor",
+          items: [
+            "Blanket","Mattress","Bed Sheet","Pillow","Pillow Cover",
+            "Bed Cover","AC Comforter","Dohar","Turkish Towel",
+            "Cushion Cover","Sofa Cover","Bath Towel"
+          ]
+        }
+      ]
+    }
   ];
 
   return (
     <>
-      {/* ===== NAVBAR ===== */}
       <nav className="fixed top-0 left-0 w-full bg-white shadow-sm z-50">
+
         <div className="max-w-7xl mx-auto px-4">
 
           <div className="flex items-center justify-between h-20">
 
-            {/* Mobile / Tablet Menu Button */}
+            {/* Mobile Menu */}
             <button
               onClick={() => setIsOpen(true)}
               className="lg:hidden text-red-600"
@@ -86,61 +125,119 @@ export default function Navbar() {
             <Link href="/" className="flex items-center">
               <Image
                 src="/Images/Logo.png"
-                alt="Kalamandir Logo"
+                alt="Logo"
                 width={160}
                 height={50}
-                className="object-contain w-32 lg:w-40"
+                className="w-32 lg:w-40"
                 priority
               />
             </Link>
 
             {/* Desktop Menu */}
-            <div className="hidden lg:flex space-x-8 font-medium text-gray-800">
+            <div className="hidden lg:flex items-center space-x-10 font-medium text-gray-800">
 
-              {menuItems.map((item) => (
-                <div key={item.name} className="relative group">
+              {menuItems.map((item) => {
 
-                  <Link
-                    href={item.href}
-                    className={`pb-2 transition ${
-                      pathname === item.href
-                        ? "text-red-600 border-b-2 border-red-600"
-                        : "hover:text-red-500"
-                    }`}
-                  >
-                    {item.name}
-                  </Link>
+                const cols = item.groups.length;
 
-                  {/* Dropdown */}
-                  <div className="absolute left-0 top-full mt-3 w-48 bg-white shadow-lg rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                return (
 
-                    {item.categories.map((cat) => (
-                      <Link
-                        key={cat}
-                        href={`${item.href}/${cat
-                          .toLowerCase()
-                          .replace(/\s+/g, "-")}`}
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-600"
-                      >
-                        {cat}
-                      </Link>
-                    ))}
+                  <div key={item.name} className="group relative">
+
+                    {/* Main Menu */}
+                    <Link
+                      href={item.href}
+                      className={`pb-2 transition ${
+                        pathname === item.href
+                          ? "text-red-600 border-b-2 border-red-600"
+                          : "hover:text-red-500"
+                      }`}
+                    >
+                      {item.name}
+                    </Link>
+
+                    {/* Mega Menu */}
+                    <div
+                      className={`absolute top-full mt-3 bg-white shadow-xl rounded-lg
+                      opacity-0 invisible group-hover:opacity-100 group-hover:visible
+                      transition-all duration-200
+                      ${
+                        item.name === "Women"
+                          ? "left-1/2 -translate-x-[30%]"
+                          : "left-1/2 -translate-x-1/2"
+                      }`}
+                    >
+
+                      <div className="px-8 py-8">
+
+                        <div
+                          className={`grid gap-x-12 gap-y-8 w-max ${
+                            cols === 1
+                              ? "grid-cols-1"
+                              : cols === 2
+                              ? "grid-cols-2"
+                              : cols === 3
+                              ? "grid-cols-3"
+                              : cols === 4
+                              ? "grid-cols-4"
+                              : cols === 5
+                              ? "grid-cols-5"
+                              : "grid-cols-6"
+                          }`}
+                        >
+
+                          {item.groups.map((group) => (
+
+                            <div key={group.title} className="min-w-[180px]">
+
+                              <h4 className="text-red-600 text-sm font-semibold uppercase mb-3">
+                                {group.title}
+                              </h4>
+
+                              <ul className="space-y-2 text-sm text-gray-700">
+
+                                {group.items.map((sub) => (
+
+                                  <li key={sub}>
+                                    <Link
+                                      href={`/shop/${sub
+                                        .toLowerCase()
+                                        .replace(/\s+/g, "-")}`}
+                                      className="hover:text-red-600 transition"
+                                    >
+                                      {sub}
+                                    </Link>
+                                  </li>
+
+                                ))}
+
+                              </ul>
+
+                            </div>
+
+                          ))}
+
+                        </div>
+
+                      </div>
+
+                    </div>
 
                   </div>
-                </div>
-              ))}
+
+                );
+              })}
 
             </div>
 
-            {/* Desktop Right Section */}
+            {/* Right Icons */}
             <div className="hidden lg:flex items-center space-x-5">
 
-              {/* Search */}
               <div className="relative">
                 <input
                   type="text"
                   placeholder="Search for products"
-                  className="w-72 pl-10 pr-4 py-2 rounded-full bg-gray-100 focus:outline-none"
+                  className="w-72 pl-10 pr-4 py-2 rounded-full bg-gray-100"
                 />
                 <Search
                   size={18}
@@ -148,26 +245,24 @@ export default function Navbar() {
                 />
               </div>
 
-              {/* Profile */}
               <User
                 onClick={handleProfileClick}
                 className="cursor-pointer text-red-600 hover:scale-110 transition"
               />
 
-              {/* Wishlist */}
               <Heart
                 onClick={goToWishlist}
                 className="cursor-pointer text-red-600 hover:scale-110 transition"
               />
 
-              {/* Cart */}
               <ShoppingCart
                 onClick={goToCart}
                 className="cursor-pointer text-red-600 hover:scale-110 transition"
               />
+
             </div>
 
-            {/* Mobile / Tablet Icons */}
+            {/* Mobile Icons */}
             <div className="flex lg:hidden items-center space-x-4 text-red-600">
               <Heart onClick={goToWishlist} size={22} />
               <ShoppingCart onClick={goToCart} size={22} />
@@ -175,13 +270,13 @@ export default function Navbar() {
 
           </div>
 
-          {/* Mobile / Tablet Search */}
+          {/* Mobile Search */}
           <div className="lg:hidden pb-4">
             <div className="relative">
               <input
                 type="text"
                 placeholder="Search for products"
-                className="w-full pl-10 pr-4 py-3 rounded-full bg-gray-100 focus:outline-none"
+                className="w-full pl-10 pr-4 py-3 rounded-full bg-gray-100"
               />
               <Search
                 size={20}
@@ -191,23 +286,23 @@ export default function Navbar() {
           </div>
 
         </div>
+
       </nav>
 
       <div className="h-20"></div>
 
-      {/* ===== MOBILE / TABLET DRAWER ===== */}
+      {/* Mobile Drawer */}
       <div
         className={`fixed inset-0 z-50 transition-transform duration-300 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        {/* Overlay */}
+
         <div
           className="absolute inset-0 bg-black/40"
           onClick={() => setIsOpen(false)}
         ></div>
 
-        {/* Drawer */}
         <div className="relative w-80 sm:w-96 h-full bg-white shadow-lg p-6 space-y-6">
 
           <div className="flex justify-between items-center">
@@ -216,11 +311,10 @@ export default function Navbar() {
               className="flex items-center gap-2 text-gray-700"
             >
               <X size={22} />
-              <span className="font-medium">Close</span>
+              Close
             </button>
           </div>
 
-          {/* Menu Links */}
           <div className="space-y-5 font-medium text-gray-800">
 
             {menuItems.map((item) => (
@@ -228,9 +322,7 @@ export default function Navbar() {
                 key={item.name}
                 href={item.href}
                 onClick={() => setIsOpen(false)}
-                className={`block ${
-                  pathname === item.href ? "text-red-600" : ""
-                }`}
+                className="block hover:text-red-600"
               >
                 {item.name}
               </Link>
@@ -240,17 +332,14 @@ export default function Navbar() {
 
           <hr />
 
-          {/* Drawer Links */}
           <div className="space-y-5 font-medium text-gray-800">
 
             <button onClick={goToWishlist} className="flex items-center gap-2">
-              <Heart size={18} />
-              WISHLIST
+              <Heart size={18} /> WISHLIST
             </button>
 
             <button onClick={goToCart} className="flex items-center gap-2">
-              <ShoppingCart size={18} />
-              CART
+              <ShoppingCart size={18} /> CART
             </button>
 
             <button
@@ -262,8 +351,11 @@ export default function Navbar() {
             </button>
 
           </div>
+
         </div>
+
       </div>
+
     </>
   );
 }

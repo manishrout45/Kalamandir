@@ -21,7 +21,7 @@ export default function RecentProducts() {
       // const data = await res.json();
 
       const data = [
-        {_id:"1",name:"FOUNDERS.SAMBALPURI",price:2000,originalPrice:8000,images:["/products/p1.jpg"]},
+        {_id:"1",name:"FOUNDERS.SAMBALPURI",price:2000,originalPrice:8000,images:["/Images/SambalpuriSaree.jpg"]},
         {_id:"2",name:"FOUNDERS.SAMBALPURI",price:2000,originalPrice:8000,images:["/products/p2.jpg"]},
         {_id:"3",name:"FOUNDERS.SAMBALPURI",price:2000,originalPrice:8000,images:["/products/p3.jpg"]},
         {_id:"4",name:"FOUNDERS.SAMBALPURI",price:2000,originalPrice:8000,images:["/products/p4.jpg"]},

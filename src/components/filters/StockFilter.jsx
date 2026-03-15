@@ -3,9 +3,7 @@ export default function StockFilter({ value, onChange }) {
   return (
     <div>
 
-      <h3 className="font-medium mb-3">
-        Availability
-      </h3>
+      <h3 className="font-medium mb-3">Availability</h3>
 
       <label className="flex items-center gap-2">
 
@@ -15,9 +13,7 @@ export default function StockFilter({ value, onChange }) {
           onChange={(e)=>onChange(e.target.checked)}
         />
 
-        <span className="text-sm">
-          In Stock Only
-        </span>
+        <span className="text-sm">In Stock Only</span>
 
       </label>
 

@@ -20,9 +20,7 @@ export default function PriceFilter({ min, max, onChange }) {
   return (
     <div>
 
-      <h3 className="font-medium mb-3">
-        Price Range
-      </h3>
+      <h3 className="font-medium mb-3">Price Range</h3>
 
       <div className="flex gap-2">
 

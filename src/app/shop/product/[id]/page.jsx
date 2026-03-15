@@ -18,13 +18,13 @@ export default function ProductDetails() {
   const products = [
     {
       _id: "1",
-      name: "FOUNDERS.SAMBALPURI",
+      name: "SAMBALPURI",
       price: 2000,
       originalPrice: 8000,
       images: [
-        "/Images/p-1.webp",
-        "/Images/p-1.webp",
-        "/Images/p-1.webp"
+        "/Images/SambalpuriSaree.jpg",
+        "/Images/SambalpuriSaree.jpg",
+        "/Images/SambalpuriSaree.jpg"
       ],
       description:
         "Premium Sambalpuri saree crafted with traditional handloom techniques. Elegant and comfortable for festive occasions.",
