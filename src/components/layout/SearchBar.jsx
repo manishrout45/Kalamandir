@@ -1,0 +1,6 @@
+import React from "react";
+export default function SearchBar() {
+  return (
+    <div className="rounded border border-gray-200 bg-white p-4">SearchBar</div>
+  );
+}
